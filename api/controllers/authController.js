@@ -5,7 +5,6 @@ const errorHandler = require("../middleware/errorHandler");
 const { customError } = require("../utils/customError");
 
 const signup = async (req, res, next) => {
-  
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
@@ -40,15 +39,18 @@ const signin = async (req, res, next) => {
     if (!validPwd) {
       return next(customError(401, "Wrong credentials", req, res));
     }
-    
-    const token = jwt.sign({ id: validUser._id },process.env.JWT_SECRET)
 
-    const { password: pass, ...rest } = validUser._doc
-    
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+
+    const { password: pass, ...rest } = validUser._doc;
+
     res
-      .cookie('access_token', token, { httpOnly: true, expires: new Date(Date.now() + 24*60*60*1000)})
+      .cookie("access_token", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      })
       .status(200)
-      .json({ rest })
+      .json({ rest });
   } catch (error) {
     errorHandler(err, req, res, next);
   }
