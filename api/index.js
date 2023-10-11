@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 
 const connectDB = require("./config/dbConn");
 const corsOptions = require("./config/corsOptions");
@@ -18,6 +19,8 @@ app.use(logger);
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.use(cookieParser())
 
 app.use("/api/user", require("./routes/userRoutes"));
 
