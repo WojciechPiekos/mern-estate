@@ -50,7 +50,7 @@ const signin = async (req, res, next) => {
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       })
       .status(200)
-      .json({ rest });
+      .json( rest );
   } catch (error) {
     errorHandler(err, req, res, next);
   }
@@ -70,7 +70,7 @@ const google = async (req, res, next) => {
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         })
         .status(200)
-        .json({ rest });
+        .json( rest );
     } else {
       const generatedPwd =
         Math.random().toString(36).slice(-8) +
@@ -80,9 +80,7 @@ const google = async (req, res, next) => {
 
       const username =
         name.split(" ").join("").toLowerCase() +
-        Math.random().toString(36).split(-4);
-
-        console.log(username, hashedPwd, email, photo)
+        Math.random().toString(36).slice(-4);
 
       const newUser = new User({
         username,
@@ -103,7 +101,7 @@ const google = async (req, res, next) => {
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         })
         .status(200)
-        .json({ rest });
+        .json( rest );
     }
   } catch (error) {
     errorHandler(error, req, res, next);
