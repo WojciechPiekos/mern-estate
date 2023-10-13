@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(cookieParser())
 
 app.use("/api/user", require("./routes/userRoutes"));
-
 app.use("/api/auth", require("./routes/authRoutes"));
+app.use("/api/listing", require("./routes/listingRoutes"));
 
 app.use(errorHandler);
 
