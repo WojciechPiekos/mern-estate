@@ -12,6 +12,8 @@ const errorHandler = require("./middleware/errorHandler");
 
 const PORT = 3000;
 
+const __dirname = path.resolve()
+
 connectDB();
 
 app.use(logger);
@@ -25,6 +27,12 @@ app.use(cookieParser())
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/listing", require("./routes/listingRoutes"));
+
+app.use(express.static(path.join(__dirname, '/client/dist')))
+
+app.get('*', (req,res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+})
 
 app.use(errorHandler);
 
